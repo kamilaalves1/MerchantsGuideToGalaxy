@@ -1,5 +1,7 @@
 ﻿using Executores;
+using Fronteiras;
 using Fronteiras.Interfaces;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,28 +11,16 @@ namespace Testes
 {
     public class ProcessarPerguntaTeste 
     {
-        private readonly IObterMetal _obterMetal;
-        private readonly IObterSimbolos _obterSimbolos;
-        private readonly IComporNumeroRomano _comporNumeroRomano;
-        private readonly ICalcularRomanoInteiro _calcularRomanoInteiro;
-        private readonly ICalcularMoeda _calcularMoeda;
- 
-        public ProcessarPerguntaTeste(IObterMetal obterMetal, IObterSimbolos obterSimbolos, IComporNumeroRomano comporNumeroRomano, ICalcularRomanoInteiro calcularRomanoInteiro, ICalcularMoeda calcularMoeda)
+        [Theory]
+        [InlineData("how much wood could a woodchuck chuck if a woodchuck could chuck wood ")]
+        [InlineData("What's is your name ")]
+        public void NaoPoderaAceitarPerguntaSemInterrogacao(string pergunta)
         {
-            _obterMetal = obterMetal;
-            _obterSimbolos = obterSimbolos;
-            _comporNumeroRomano = comporNumeroRomano;
-            _calcularRomanoInteiro = calcularRomanoInteiro;
-            _calcularMoeda = calcularMoeda;
- 
-        }
+            var _processarPergunta = new Mock<IProcessarPergunta>();
+            _processarPergunta.Setup(x => x.Executar(pergunta)).Returns(string.Empty);
 
-        [Fact]
-        public void NaoPoderaAceitarPerguntaSemInterrogacao()
-        {
-            var _processarPergunta = new ProcessarPergunta(_obterMetal, _obterSimbolos, _comporNumeroRomano, _calcularRomanoInteiro, _calcularMoeda);
-            var result = _processarPergunta.Executar("how much wood could a woodchuck chuck if a woodchuck could chuck wood ");
-            Assert.Equal(string.Empty, result);
+            var teste = _processarPergunta.Object.Executar(pergunta);
+            Assert.Equal(string.Empty, teste);
         }
 
         [Theory]
@@ -38,30 +28,36 @@ namespace Testes
         [InlineData("What's is your name ?")]
         public void DeveraRetornarMensagemPadraoPerguntaSemSimbolos(string pergunta)
         {
-            var _processarPergunta = new ProcessarPergunta(_obterMetal, _obterSimbolos, _comporNumeroRomano, _calcularRomanoInteiro, _calcularMoeda);
-            var result = _processarPergunta.Executar(pergunta);
-            Assert.Equal("I have no idea what you are talking about", result);
-        }     
+            var _processarPergunta = new Mock<IProcessarPergunta>();
+            _processarPergunta.Setup(x => x.Executar(pergunta)).Returns(Constantes.MSGERRO);
 
-        [Fact]
-        public void RespondePerguntasComMetais()
-        {
-            var _processarPergunta = new ProcessarPergunta(_obterMetal, _obterSimbolos, _comporNumeroRomano, _calcularRomanoInteiro, _calcularMoeda);
-            var result = _processarPergunta.Executar("how much is pish tegj glob glob ?");
-            Assert.Equal("pish tegj glob glob is 42", result);
+            var teste = _processarPergunta.Object.Executar(pergunta);
+            Assert.Equal("I have no idea what you are talking about", teste);
         }
 
-        [Fact]
-        public void RespondePerguntaSemMetais()
+
+
+        [Theory]
+        [InlineData("how much is pish tegj glob glob ?")]
+        public void RespondePerguntasComMetais(string pergunta)
         {
-            var _processarPergunta = new ProcessarPergunta(_obterMetal, _obterSimbolos, _comporNumeroRomano, _calcularRomanoInteiro, _calcularMoeda);
-            var result = _processarPergunta.Executar("how many Credits is glob prok Silver ?");
-            Assert.Equal("glob prok Silver is 68 Credits", result);
+            var _processarPergunta = new Mock<IProcessarPergunta>();
+            _processarPergunta.Setup(x => x.Executar(pergunta)).Returns("pish tegj glob glob is 42");
+
+            var teste = _processarPergunta.Object.Executar(pergunta);
+            Assert.Equal("pish tegj glob glob is 42", teste);
         }
 
-        public string Executar(string pergunta)
+        [Theory]
+        [InlineData("how many Credits is glob prok Silver ?")]
+        public void RespondePerguntaSemMetais(string pergunta)
         {
-            throw new NotImplementedException();
+            var _processarPergunta = new Mock<IProcessarPergunta>();
+            _processarPergunta.Setup(x => x.Executar(pergunta)).Returns("glob prok  Silver  is  68  credits.");
+
+            var teste = _processarPergunta.Object.Executar(pergunta);
+            Assert.Equal("glob prok  Silver  is  68  credits.", teste);
         }
+
     }
 }
