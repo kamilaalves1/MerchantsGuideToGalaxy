@@ -4,6 +4,7 @@ using Fronteiras.Interfaces;
 using MerchantsGuideToTheGalaxy_KamilaAlves;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Executores
@@ -12,13 +13,17 @@ namespace Executores
     {
         private readonly IObterMetal _obterMetal;
         private readonly IObterSimbolos _obterSimbolos;
-        private readonly IConverterRomanosEmInteiros _converterRomanosEmInteiros;
+        private readonly IComporNumeroRomano _comporNumeroRomano;
+        private readonly ICalcularRomanoInteiro _calcularRomanoInteiro;
+        private readonly ICalcularMoeda _calcularMoeda;
 
-        public ProcessarPergunta(IObterMetal obterMetal, IObterSimbolos obterSimbolos, IConverterRomanosEmInteiros converterRomanosEmInteiros)
+        public ProcessarPergunta(IObterMetal obterMetal, IObterSimbolos obterSimbolos, IComporNumeroRomano comporNumeroRomano, ICalcularRomanoInteiro calcularRomanoInteiro, ICalcularMoeda calcularMoeda)
         {
             _obterMetal = obterMetal;
             _obterSimbolos = obterSimbolos;
-            _converterRomanosEmInteiros = converterRomanosEmInteiros;
+            _comporNumeroRomano = comporNumeroRomano;
+            _calcularRomanoInteiro = calcularRomanoInteiro;
+            _calcularMoeda = calcularMoeda;
         }
 
         public string Executar(string pergunta)
@@ -29,26 +34,17 @@ namespace Executores
                     return null;
 
                 if (!pergunta.Contains("?"))
-                    return new Excecao(Constantes.MSGNAOPERGUNTA).ToString();
+                    return Constantes.MSGNAOPERGUNTA;
 
                 pergunta = pergunta.Replace("?", " ?");
 
                 var listaSimbolos = _obterSimbolos.Obter(pergunta);
-                var metal = (Metais)_obterMetal.Obter(pergunta);
-                var valorRomanosEmInteiros = _converterRomanosEmInteiros.Executar(listaSimbolos);
-                return null;
-                //var romanNumbers = ConvertGalacticToRoman(comands);
-                //var metal = Metal.ReturnMetal(input);
-                //var credit = CalculateGalacticCredit(metal, romanNumbers);
-                //if (credit > 0)
-                //{
-                //    if (metal == MetalType.None)
-                //        return string.Concat(comands.ToLower(), "is ", credit.ToString());
-                //    else
-                //        return string.Concat(comands.ToLower(), metal, " is ", credit.ToString(), " Credits");
-                //}
-                //else
-                //    return "I have no idea what you are talking about";
+                var metal = _obterMetal.Obter(pergunta);
+                var composicaoNumeroRomano = _comporNumeroRomano.Obter(listaSimbolos);
+                double numero = _calcularRomanoInteiro.Executar(composicaoNumeroRomano);
+                var creditos = _calcularMoeda.Calcular(metal, (int)numero);
+
+                return creditos > 0 ? metal == Metais.None ? string.Format("{0} {1} {2}", ConcatenarSimbolos(listaSimbolos.Select(x => x.Item1).ToList()), " is ", creditos.ToString()) : string.Format("{0} {1} {2} {3} {4}", ConcatenarSimbolos(listaSimbolos.Select(x => x.Item1).ToList()), metal, " is ", creditos.ToString(), " credits.") : Constantes.MSGERRO;
 
             }
             catch (Exception ex)
@@ -56,6 +52,17 @@ namespace Executores
                 throw new Excecao(ex.ToString());
             }
 
+        }
+
+        string ConcatenarSimbolos(List<string> simbolosLista)
+        {
+            StringBuilder sbResultado = new StringBuilder();
+            foreach (var item in simbolosLista)
+            {
+                sbResultado.Append(item);
+                sbResultado.Append(" ");
+            }
+            return sbResultado.ToString().ToLower();
         }
     }
 }

@@ -5,11 +5,13 @@ VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MerchantsGuideToTheGalaxy_KamilaAlves", "MerchantsGuideToTheGalaxy_KamilaAlves\MerchantsGuideToTheGalaxy_KamilaAlves.csproj", "{71B4BB98-76E6-4868-8080-13181FDE0EAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comum", "Comum\Comum.csproj", "{19601E8E-F952-458A-B08A-553B0CD84844}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Comum", "Comum\Comum.csproj", "{19601E8E-F952-458A-B08A-553B0CD84844}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Executores", "Executores\Executores.csproj", "{2F63F453-436C-4B7D-A099-C1E1EA6C7666}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Executores", "Executores\Executores.csproj", "{2F63F453-436C-4B7D-A099-C1E1EA6C7666}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fronteiras", "Fronteiras\Fronteiras.csproj", "{37B02B43-0E2C-4D8E-9AB0-DCD184F84E52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fronteiras", "Fronteiras\Fronteiras.csproj", "{37B02B43-0E2C-4D8E-9AB0-DCD184F84E52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testes", "Testes\Testes.csproj", "{AEF4BEE3-A5D1-4EBE-BB64-5B0B1D48F18A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,22 @@ Global
 		{37B02B43-0E2C-4D8E-9AB0-DCD184F84E52}.Release|x64.Build.0 = Release|Any CPU
 		{37B02B43-0E2C-4D8E-9AB0-DCD184F84E52}.Release|x86.ActiveCfg = Release|Any CPU
 		{37B02B43-0E2C-4D8E-9AB0-DCD184F84E52}.Release|x86.Build.0 = Release|Any CPU
+		{AEF4BEE3-A5D1-4EBE-BB64-5B0B1D48F18A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEF4BEE3-A5D1-4EBE-BB64-5B0B1D48F18A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEF4BEE3-A5D1-4EBE-BB64-5B0B1D48F18A}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{AEF4BEE3-A5D1-4EBE-BB64-5B0B1D48F18A}.Debug|ARM.Build.0 = Debug|Any CPU
+		{AEF4BEE3-A5D1-4EBE-BB64-5B0B1D48F18A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AEF4BEE3-A5D1-4EBE-BB64-5B0B1D48F18A}.Debug|x64.Build.0 = Debug|Any CPU
+		{AEF4BEE3-A5D1-4EBE-BB64-5B0B1D48F18A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AEF4BEE3-A5D1-4EBE-BB64-5B0B1D48F18A}.Debug|x86.Build.0 = Debug|Any CPU
+		{AEF4BEE3-A5D1-4EBE-BB64-5B0B1D48F18A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEF4BEE3-A5D1-4EBE-BB64-5B0B1D48F18A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEF4BEE3-A5D1-4EBE-BB64-5B0B1D48F18A}.Release|ARM.ActiveCfg = Release|Any CPU
+		{AEF4BEE3-A5D1-4EBE-BB64-5B0B1D48F18A}.Release|ARM.Build.0 = Release|Any CPU
+		{AEF4BEE3-A5D1-4EBE-BB64-5B0B1D48F18A}.Release|x64.ActiveCfg = Release|Any CPU
+		{AEF4BEE3-A5D1-4EBE-BB64-5B0B1D48F18A}.Release|x64.Build.0 = Release|Any CPU
+		{AEF4BEE3-A5D1-4EBE-BB64-5B0B1D48F18A}.Release|x86.ActiveCfg = Release|Any CPU
+		{AEF4BEE3-A5D1-4EBE-BB64-5B0B1D48F18A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

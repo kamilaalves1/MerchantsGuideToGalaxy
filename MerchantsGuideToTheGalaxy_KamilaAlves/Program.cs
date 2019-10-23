@@ -10,7 +10,7 @@ namespace MerchantsGuideToTheGalaxy_KamilaAlves
         private static IServiceProvider _serviceProvider;
         static void Main(string[] args)
         {
-          
+
             InjetarDependencias();
 
             Console.WriteLine("*********************************************************");
@@ -27,16 +27,20 @@ namespace MerchantsGuideToTheGalaxy_KamilaAlves
             Console.WriteLine("");
             Console.WriteLine("Entre com sua pergunta:");
 
-
-            var chamada = _serviceProvider.GetService<IProcessarPergunta>();
-            chamada.Executar(Console.ReadLine());
-            //DisposeServico();
+            while (true)
+            {
+                var chamada = _serviceProvider.GetService<IProcessarPergunta>();
+                Console.WriteLine(chamada.Executar(Console.ReadLine()));
+                Console.ReadLine();
+            }
         }
 
         private static void InjetarDependencias()
         {
             var collection = new ServiceCollection();
-            collection.AddScoped<IConverterRomanosEmInteiros, ConverterRomanosEmInteiros>();
+            collection.AddScoped<ICalcularMoeda, CalcularMoeda>();
+            collection.AddScoped<ICalcularRomanoInteiro, CalcularRomanoInteiro>();
+            collection.AddScoped<IComporNumeroRomano, ComporNumeroRomano>();
             collection.AddScoped<IProcessarPergunta, ProcessarPergunta>();
             collection.AddScoped<IObterSimbolos, ObterSimbolos>();
             collection.AddScoped<IObterMetal, ObterMetal>();

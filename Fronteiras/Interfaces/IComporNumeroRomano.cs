@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Fronteiras.Interfaces
 {
-    public interface IConverterRomanosEmInteiros
+    public interface IComporNumeroRomano
     {
-        int Executar(List<Tuple<string, string>> listaRomano);
+        string Obter(List<Tuple<string, string>> numeroRomanoLista);
     }
 }
